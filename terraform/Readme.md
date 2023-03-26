@@ -11,7 +11,7 @@ This folder has the terraform code for below resources
 # dynamo db 
 
 Only one dynamo db table is created for single az for all terraform available to lock the statefile
-Howeere we will be having different s3 buckets or  different fodlers in same s3 bucket for mutliple terraform codes 
+However we will be having different s3 buckets or  different fodlers in same s3 bucket for mutliple terraform codes 
 
 `cd terraform/backend`
 

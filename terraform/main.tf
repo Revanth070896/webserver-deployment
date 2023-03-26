@@ -15,6 +15,15 @@ data "aws_ami" "ubuntu" {
   owners = ["099720109477"] # Canonical
 }
 
+data "aws_route53_zone" "aws_route53_zone" {
+  name         = "techinterviewsuk.com."
+  private_zone = false
+}
+
+locals {
+  domain_name = "bamboohr.techinterviewsuk.com"
+}
+
 resource "aws_security_group" "webserver_sg" {
   name        = "webserver_security_group"
   description = "The group allows ssh and ssl ports"
@@ -74,4 +83,13 @@ resource "aws_instance" "web" {
     Name = "webserver"
     Application = "webserver"
   }
+}
+
+
+resource "aws_route53_record" "www" {
+  zone_id = data.aws_route53_zone.aws_route53_zone.zone_id
+  name    = local.domain_name
+  type    = "A"
+  ttl     = 300
+  records = [aws_instance.web.public_ip]
 }
