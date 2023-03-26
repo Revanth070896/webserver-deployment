@@ -14,6 +14,6 @@ However for interview purpose embedded inside same repo
 The application is deployed through jenkins and the jenkinsfile is present in `main` branch. the deployment is triggered by github webhooks.
 
 
-# Applicatin URL
+# Application URL
 
 https://bamboohr.techinterviewsuk.com/
