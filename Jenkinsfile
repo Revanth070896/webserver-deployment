@@ -17,7 +17,7 @@ pipeline {
                         branches: [[name: '*/main']], 
                         doGenerateSubmoduleConfigurations: false, 
                         submoduleCfg: [], 
-                        userRemoteConfigs: [[credentialsId: 'github-access-key', url: 'https://github.com/Revanth070896/webserver-deployment.git']]
+                        userRemoteConfigs: [[credentialsId: 'github-interview-token', url: 'https://github.com/Revanth070896/webserver-deployment.git']]
                     ])
                 }
             }
@@ -28,8 +28,8 @@ pipeline {
                 withCredentials([sshUserPrivateKey(credentialsId: 'bamboohr-ssh-private-key', keyFileVariable: 'DEPLOY_SSH_KEY',usernameVariable: 'DEPLOY_USERNAME')]) {
                 script {
                     sh """
-                        scp -i src/*  ${DEPLOY_USERNAME}@${ADDRESSBOOK_SERVER}:/var/www/html/
-                        ssh -i ${DEPLOY_SSH_KEY} ${DEPLOY_USERNAME}@${ADDRESSBOOK_SERVER} "sudo service nginx restart"
+                        scp -i src/*  ${DEPLOY_USERNAME}@${SERVER}:/var/www/html/
+                        ssh -i ${DEPLOY_SSH_KEY} ${DEPLOY_USERNAME}@${SERVER} "sudo service nginx restart"
                     """
                 }
                 }
