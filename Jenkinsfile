@@ -17,7 +17,7 @@ pipeline {
                         branches: [[name: '*/main']], 
                         doGenerateSubmoduleConfigurations: false, 
                         submoduleCfg: [], 
-                        userRemoteConfigs: [[credentialsId: 'github-access-key', url: 'git@github.com:santhu3064/addressbook-tomcat8.git']]
+                        userRemoteConfigs: [[credentialsId: 'github-access-key', url: 'https://github.com/Revanth070896/webserver-deployment.git']]
                     ])
                 }
             }
@@ -43,13 +43,10 @@ pipeline {
             }
         }
         success{
-            slackSend message: "Addressbook dev deploy  DEPLOY_VERSION=${props.DEV_VERSION} BUILD URL: ${BUILD_URL}", color: "#439FE0", channel: "#dev-notifications", tokenCredentialId: "slack-global-notifier"
+            slackSend message: "Deployed sample   BUILD URL: ${BUILD_URL}", color: "#439FE0", channel: "#dev-notifications", tokenCredentialId: "slack-global-notifier"
         }
         failure{
-            slackSend message: "Addressbook dev deploy  DEPLOY_VERSION=${props.DEV_VERSION} BUILD URL: ${BUILD_URL}", color: "#FF0000", channel: "#dev-notifications", tokenCredentialId: "slack-global-notifier"
-        }
-        fixed{
-            slackSend message: "Addressbook dev deploy  DEPLOY_VERSION=${props.DEV_VERSION} BUILD URL: ${BUILD_URL}", color: "#FFFF00", channel: "#dev-notifications", tokenCredentialId: "slack-global-notifier"
+            slackSend message: "FAILED: Deployed sample  webserver  BUILD URL: ${BUILD_URL}", color: "#FF0000", channel: "#dev-notifications", tokenCredentialId: "slack-global-notifier"
         }
     }
     }
