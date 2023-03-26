@@ -28,7 +28,9 @@ pipeline {
                 withCredentials([sshUserPrivateKey(credentialsId: 'bamboohr-ssh-private-key', keyFileVariable: 'DEPLOY_SSH_KEY',usernameVariable: 'DEPLOY_USERNAME')]) {
                 script {
                     sh """
-                        scp -r -i ${DEPLOY_SSH_KEY} src/*  ${DEPLOY_USERNAME}@${SERVER}:/var/www/html/
+                         ssh -i ${DEPLOY_SSH_KEY} ${DEPLOY_USERNAME}@${SERVER} "rm -rf /tmp/src"
+                        scp -r -i ${DEPLOY_SSH_KEY} src  ${DEPLOY_USERNAME}@${SERVER}:/tmp/
+                        ssh -i ${DEPLOY_SSH_KEY} ${DEPLOY_USERNAME}@${SERVER} "sudo cp -r /tmp/src/*  /var/www/html/"
                         ssh -i ${DEPLOY_SSH_KEY} ${DEPLOY_USERNAME}@${SERVER} "sudo service nginx restart"
                     """
                 }
