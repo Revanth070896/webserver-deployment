@@ -1,0 +1,30 @@
+---
+- name: Update repositories cache and install "foo" package
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    update_cache: yes
+  with_items: "{{ apt_packages }}"
+    
+
+- name: Allow everything and enable UFW
+  community.general.ufw:
+    state: enabled
+    policy: allow
+
+
+- name: Allow all access to tcp port 80
+  community.general.ufw:
+    rule: allow
+    port: "{{ item }}"
+    proto: tcp
+  with_items: "{{ ufw_allow_ports }}"
+
+
+- name: Generate new certificate if one doesn't exist.
+  command: "certbot --nginx  -n -d {{ domain_name }}  --email  {{ certbot_email }} --agree-tos"
+
+
+- name: Install https nginx rule
+  template:
+    src: "https-config.conf.j2"
+    dest: "/etc/nginx/sites-available/default"

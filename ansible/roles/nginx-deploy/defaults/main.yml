@@ -1,0 +1,15 @@
+---
+# defaults file for nginx-deploy
+apt_packages:
+  - nginx
+  - certbot
+  - python3-certbot-nginx
+
+domain_name: ""
+
+ufw_allow_ports:
+  - "22"
+  - "80"
+  - "443"
+
+certbot_email: ""

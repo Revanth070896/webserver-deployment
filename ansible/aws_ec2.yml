@@ -1,0 +1,18 @@
+# Example using filters, ignoring permission errors, and specifying the hostname precedence
+plugin: aws_ec2
+# The values for profile, access key, secret key and token can be hardcoded like:
+boto_profile: revanth
+# or you could use Jinja as:
+# boto_profile: "{{ lookup('env', 'AWS_PROFILE') | default('aws_profile', true) }}"
+# Populate inventory with instances in these regions
+regions:
+  - eu-west-2
+
+filters:
+  # All instances with their state as `running`
+  instance-state-name: running
+keyed_groups:
+  - key: tags.Application
+    prefix: app
+compose:
+  ansible_host: public_ip_address

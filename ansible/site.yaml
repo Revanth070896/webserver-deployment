@@ -1,0 +1,10 @@
+---
+- hosts: "app_webserver"
+  gather_facts: true
+  become: true
+  roles:
+    - role: nginx-deploy
+      vars:
+        domain_name: 'bamboohr.techinterviewsuk.com'
+        certbot_email: 'mrevanth123@gmail.com'
+
